@@ -4,19 +4,36 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink :to="{ name: 'home'}">Home</RouterLink>
-        <RouterLink :to="{ name: 'create' }">About</RouterLink>
-      </nav>
-    </div>
+    <RouterLink id="topLink" :to="{ name: 'home'}">Todo App</RouterLink>
   </header>
   <main>
-
     <RouterView />
   </main>
 </template>
 
-<style scoped>
+<style>
+* {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
 
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: #C8EFEA;
+}
+
+#topLink {
+  color: #23AC0E;
+  font-size: 36px;
+  text-align: center;
+}
+
+main {
+  background-color: #F9F9F9;
+  height: 100vh;
+}
 </style>
