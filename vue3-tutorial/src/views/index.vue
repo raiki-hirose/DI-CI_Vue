@@ -18,23 +18,6 @@ const showingTodoList = computed(() =>
   : todoStore.uncompletedTodoList
 )
 
-function addTodo() {
-  if (!inputTitle.value || !inputBody.value) {
-    return
-  }
-
-  todoList.value.push({
-    id: currentId.value,
-    title: inputTitle.value,
-    body: inputBody.value,
-    completed: false,
-  })
-
-  todoStore.incrementId()
-  inputTitle.value = ''
-  inputBody.value = ''
-}
-
 function completeTodo(id: number) {
   const targetTodo = todoList.value.find(todo => todo.id === id)
   if (targetTodo) {
@@ -50,14 +33,9 @@ function deleteTodo(id: number) {
 
 <template>
   <article>
-    <div id="addTodo">
-      <input type="text" v-model="inputTitle" placeholder="タイトルを入力" />
-      <input type="text" v-model="inputBody" placeholder="内容を入力" />
-      <CommonButton text="追加" color="skyblue" @click-button="addTodo" />
-    </div>
     <section id="todoList">
       <template v-if="showingTodoList.length">
-        <table border="1">
+        <table :border="1">
           <tr>
             <th>タイトル</th>
             <th>内容</th>
@@ -72,10 +50,10 @@ function deleteTodo(id: number) {
               {{ todo.completed ? '完了' : '未完了' }}
             </td>
             <td>
-              <CommonButton text="完了" color="yellowgreen" @click-button="completeTodo(todo.id)" />
+              <CommonButton text="完了" bg-color="yellowgreen" @click-button="completeTodo(todo.id)" />
             </td>
             <td>
-              <CommonButton text="削除" color="pink" @click-button="deleteTodo(todo.id)" />
+              <CommonButton text="削除" bg-color="pink" @click-button="deleteTodo(todo.id)" />
             </td>
           </tr>
         </table>
@@ -88,6 +66,7 @@ function deleteTodo(id: number) {
         <label for="toggleShowCompleted">完了済のTodoを表示する</label>
       </div>
     </section>
+    <RouterLink id="createLink" :to="{ name: 'create'}">追加</RouterLink>
   </article>
 </template>
 
@@ -103,8 +82,13 @@ article {
   flex-wrap: wrap;
 }
 
-#addTodo input {
-  width: 300px;
+#inputTitle {
+  width: 200px;
+  height: 30px;
+}
+
+#inputBody {
+  width: 320px;
   height: 30px;
 }
 
@@ -134,29 +118,42 @@ th, td {
 
 .uncompleted {
   font-weight: bold;
-  color: red;
+  color: crimson;
 }
 
 #congratulations {
-  padding: 24px;
+  margin-top: 36px;
   font-weight: bold;
   font-size: 24px;
   color: #A52175;
 }
 
 #checkboxArea {
-  margin-top: 24px;
-  padding: 24px;
+  margin-top: 56px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  font-size: 16px;
-  font-weight: bold;
 }
 
 #checkboxArea input {
   height: 18px;
   width: 18px;
+}
+
+a#createLink{
+  display: block;
+  margin: 56px auto 0;
+  width: fit-content;
+  padding: 4px 16px;
+  font-size: 16px;
+  border: 1px solid #3261AB;
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: #007FB1;
+  color: #F6F6F6;
+}
+a#createLink:hover{
+  opacity: 0.5;
 }
 </style>

@@ -26,6 +26,10 @@ header {
   background-color: #C8EFEA;
 }
 
+header a:hover {
+  opacity: 0.7;
+}
+
 #topLink {
   color: #23AC0E;
   font-size: 36px;

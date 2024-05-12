@@ -4,10 +4,14 @@ defineProps({
     type: String,
     default: 'ボタン',
   },
-  color: {
+  bgColor: {
     type: String,
     default: '',
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 defineEmits([
@@ -16,20 +20,26 @@ defineEmits([
 </script>
 
 <template>
-  <button :style="`background-color: ${color}`" @click="$emit('clickButton')">
+  <button :style="`background-color: ${bgColor}`" :disabled="disabled" @click="$emit('clickButton')">
     {{ text }}
   </button>
 </template>
 
 <style scoped>
 button {
-  padding: 2px 12px;
+  width: fit-content;
+  padding: 4px 12px;
   font-size: 16px;
   border-width: 1px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 button:hover {
   opacity: 0.5;
+}
+
+button:disabled {
+  background-color: #aaaaaa !important;
+  opacity: 1;
 }
 </style>
