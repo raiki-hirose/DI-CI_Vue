@@ -1,42 +1,38 @@
 <script setup lang="ts">
 import CommonButton from '../components/CommonButton.vue'
 import { computed, ref } from 'vue'
+import { useTodoStore } from '../stores/todo'
+import { storeToRefs } from 'pinia'
 
-interface Todo {
-  id: number
-  text: string
-  completed: boolean
-}
+const todoStore = useTodoStore()
+const { todoList, currentId } = storeToRefs(todoStore)
 
-const currentId = ref(1)
-
-const inputText = ref('')
-
-const todoList = ref<Todo[]>([] as Todo[])
+const inputTitle = ref('')
+const inputBody = ref('')
 
 const isShowCompletedTodo = ref(true)
 
 const showingTodoList = computed(() =>
   isShowCompletedTodo.value
   ? todoList.value
-  : todoList.value.filter(todo => todo.completed === false)
-  
+  : todoStore.uncompletedTodoList
 )
 
-
 function addTodo() {
-  if (!inputText.value) {
+  if (!inputTitle.value || !inputBody.value) {
     return
   }
 
   todoList.value.push({
     id: currentId.value,
-    text: inputText.value,
+    title: inputTitle.value,
+    body: inputBody.value,
     completed: false,
   })
 
-  currentId.value++
-  inputText.value = ''
+  todoStore.incrementId()
+  inputTitle.value = ''
+  inputBody.value = ''
 }
 
 function completeTodo(id: number) {
@@ -55,22 +51,23 @@ function deleteTodo(id: number) {
 <template>
   <article>
     <div id="addTodo">
-      <input type="text" v-model="inputText" placeholder="Todoを入力" />
+      <input type="text" v-model="inputTitle" placeholder="タイトルを入力" />
+      <input type="text" v-model="inputBody" placeholder="内容を入力" />
       <CommonButton text="追加" color="skyblue" @click-button="addTodo" />
     </div>
     <section id="todoList">
       <template v-if="showingTodoList.length">
         <table border="1">
           <tr>
-            <th>id</th>
-            <th>todo</th>
+            <th>タイトル</th>
+            <th>内容</th>
             <th>状態</th>
             <th>完了</th>
             <th>削除</th>
           </tr>
           <tr v-for="todo in showingTodoList" :key="todo.id">
-            <td>{{ todo.id }}</td>
-            <td>{{ todo.text }}</td>
+            <td id="todoTitle">{{ todo.title }}</td>
+            <td id="todoBody">{{ todo.body }}</td>
             <td :class="todo.completed ? false : 'uncompleted'">
               {{ todo.completed ? '完了' : '未完了' }}
             </td>
@@ -124,7 +121,15 @@ table {
 th, td {
   padding: 6px 12px;
   text-align: center;
-  min-width: 80px;
+  min-width: 60px;
+}
+
+#todoTitle {
+  min-width: 120px;
+}
+
+#todoBody {
+  min-width: 240px;
 }
 
 .uncompleted {
