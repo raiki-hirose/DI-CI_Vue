@@ -3,7 +3,7 @@ import CommonButton from '../components/CommonButton.vue'
 import { ref, computed } from 'vue'
 import { useTodoStore } from '../stores/todo'
 import { storeToRefs } from 'pinia'
-import router from '@/router';
+import router from '@/router'
 
 const todoStore = useTodoStore()
 const { todoList, currentId } = storeToRefs(todoStore)
