@@ -5,10 +5,7 @@ import { useTodoStore } from '../stores/todo'
 import { storeToRefs } from 'pinia'
 
 const todoStore = useTodoStore()
-const { todoList, currentId } = storeToRefs(todoStore)
-
-const inputTitle = ref('')
-const inputBody = ref('')
+const { todoList } = storeToRefs(todoStore)
 
 const isShowCompletedTodo = ref(true)
 
