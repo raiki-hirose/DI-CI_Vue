@@ -14,7 +14,6 @@ const inputBody = ref('')
 const isDisabledAddButton = computed(() => !inputTitle.value || !inputBody.value)
 
 function addTodo() {
-  console.log('add')
   if (!inputTitle.value || !inputBody.value) {
     return
   }
