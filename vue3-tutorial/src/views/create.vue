@@ -65,6 +65,7 @@ article {
 
 input {
   margin-top: 4px;
+  padding-left: 8px;
   width: 320px;
   height: 30px;
 }

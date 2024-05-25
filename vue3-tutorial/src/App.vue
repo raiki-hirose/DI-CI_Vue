@@ -22,7 +22,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 150px;
   background-color: #C8EFEA;
 }
 
