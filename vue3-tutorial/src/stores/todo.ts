@@ -21,4 +21,7 @@ export const useTodoStore = defineStore({
       this.currentId++
     },
   },
+  persist: {
+    storage: sessionStorage,
+  },
 })
