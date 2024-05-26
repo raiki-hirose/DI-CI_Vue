@@ -15,10 +15,10 @@ const showingTodoList = computed(() =>
   : todoStore.uncompletedTodoList
 )
 
-function completeTodo(id: number) {
+function toggleTodoCompleted(id: number) {
   const targetTodo = todoList.value.find(todo => todo.id === id)
   if (targetTodo) {
-    targetTodo.completed = true
+    targetTodo.completed = !targetTodo.completed
   }
 }
 
@@ -37,8 +37,8 @@ function deleteTodo(id: number) {
             <th>タイトル</th>
             <th>内容</th>
             <th>状態</th>
-            <th>完了</th>
-            <th>削除</th>
+            <th></th>
+            <th></th>
           </tr>
           <tr v-for="todo in showingTodoList" :key="todo.id">
             <td id="todoTitle">{{ todo.title }}</td>
@@ -47,7 +47,11 @@ function deleteTodo(id: number) {
               {{ todo.completed ? '完了' : '未完了' }}
             </td>
             <td>
-              <CommonButton text="完了" bg-color="yellowgreen" @click-button="completeTodo(todo.id)" />
+              <CommonButton
+                :text="todo.completed ? '未完了に戻す' : '完了する' "
+                :bg-color="todo.completed ? 'yellowgreen' : 'skyblue'"
+                @click-button="toggleTodoCompleted(todo.id)"
+              />
             </td>
             <td>
               <CommonButton text="削除" bg-color="pink" @click-button="deleteTodo(todo.id)" />
