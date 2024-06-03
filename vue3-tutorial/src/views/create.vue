@@ -18,7 +18,7 @@ function addTodo() {
     return
   }
 
-  todoList.value.push({
+  todoStore.addTodo({
     id: currentId.value,
     title: inputTitle.value,
     body: inputBody.value,

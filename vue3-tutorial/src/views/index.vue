@@ -23,8 +23,7 @@ function toggleTodoCompleted(id: number) {
 }
 
 function deleteTodo(id: number) {
-  const newTodoList = todoList.value.filter(todo => todo.id !== id)
-  todoList.value = newTodoList
+  todoStore.deleteTodo(id)
 }
 </script>
 

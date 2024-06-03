@@ -20,8 +20,14 @@ export const useTodoStore = defineStore({
     incrementId() {
       this.currentId++
     },
+    addTodo(todo: Todo) {
+      this.todoList.push(todo)
+    },
+    deleteTodo(id: number) {
+      this.todoList = this.todoList.filter(todo => todo.id !== id)
+    },
   },
   persist: {
-    storage: sessionStorage,
+    storage: localStorage,
   },
 })
