@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia'
 import router from '@/router'
 
 const todoStore = useTodoStore()
-const { todoList, currentId } = storeToRefs(todoStore)
+const { currentId } = storeToRefs(todoStore)
 
 const inputTitle = ref('')
 const inputBody = ref('')
